@@ -1,0 +1,281 @@
+================================================================================
+STEP 1: Environment Setup and Library Imports
+================================================================================
+➤ Libraries imported successfully:
+  ➤ pandas version: 2.2.3
+  ➤ numpy version: 2.2.3
+  ➤ scikit-learn, scipy imported
+
+================================================================================ 
+STEP 2: Data Loading and Initial Exploration
+================================================================================ 
+➤ Loading dataset from: Speed Dating Data.csv
+➤ Dataset loaded successfully!
+  ➤ Shape: (8378, 195) (rows × columns)
+  ➤ Memory usage: 15.31 MB
+➤ First 3 rows preview:
+   iid   id  gender  idg  condtn  ...  attr5_3  sinc5_3  intel5_3  fun5_3  amb5_30    1  1.0       0    1       1  ...      NaN      NaN       NaN     NaN     NaN1    1  1.0       0    1       1  ...      NaN      NaN       NaN     NaN     NaN2    1  1.0       0    1       1  ...      NaN      NaN       NaN     NaN     NaN
+[3 rows x 195 columns]
+➤
+Column data types summary:
+float64    174
+int64       13
+object       8
+Name: count, dtype: int64
+➤ 
+Numerical columns: 187
+➤ Object columns: 8
+
+================================================================================ 
+STEP 3: Missing Values Analysis and Treatment
+================================================================================ 
+➤ 3.1 Analyzing missing value patterns...
+  ➤ Columns with missing values: 182
+  ➤ Top 20 columns with highest missing percentages:
+       Column  Missing_Count  Missing_Percentage
+160  num_in_3           7710           92.026737
+159  numdat_3           6882           82.143710
+68     expnum           6578           78.515159
+123   sinc7_2           6423           76.665075
+126    amb7_2           6423           76.665075
+127   shar7_2           6404           76.438291
+125    fun7_2           6394           76.318931
+122   attr7_2           6394           76.318931
+124  intel7_2           6394           76.318931
+171    amb7_3           6362           75.936978
+191   sinc5_3           6362           75.936978
+194    amb5_3           6362           75.936978
+193    fun5_3           6362           75.936978
+172   shar7_3           6362           75.936978
+184   shar2_3           6362           75.936978
+190   attr5_3           6362           75.936978
+169  intel7_3           6362           75.936978
+192  intel5_3           6362           75.936978
+167   attr7_3           6362           75.936978
+168   sinc7_3           6362           75.936978
+  ➤
+Columns with >50% missing: 59
+    ➤ These columns: ['num_in_3', 'numdat_3', 'expnum', 'sinc7_2', 'amb7_2', 'shar7_2', 'fun7_2', 'attr7_2', 'intel7_2', 'amb7_3']...
+➤
+3.2 Applying missing value treatment strategies...
+  ➤
+Converting string-formatted numeric columns...
+    ➤ income: Converted from string to numeric
+    ➤ tuition: Converted from string to numeric
+    ➤ mn_sat: Converted from string to numeric
+    ➤ zipcode: Converted from string to numeric
+    ➤ from: Converted from string to numeric
+  ➤ Treating demographic variables...
+    ➤ Age: Imputed 95 missing values with gender-specific median
+    ➤ Age_o: Imputed 104 missing values
+    ➤ Race: 63 missing values marked as Unknown
+    ➤ Race_o: 73 missing values marked as Unknown
+    ➤ Field_cd: Imputed 82 missing values with mode
+    ➤ Income: Imputed 4099 missing values with median
+  ➤ Treating rating variables...
+    ➤ attr: Imputed 202 missing values
+    ➤ sinc: Imputed 277 missing values
+    ➤ intel: Imputed 296 missing values
+    ➤ fun: Imputed 350 missing values
+    ➤ amb: Imputed 712 missing values
+    ➤ shar: Imputed 1067 missing values
+    ➤ attr_o: Imputed 212 missing values
+    ➤ sinc_o: Imputed 287 missing values
+    ➤ intel_o: Imputed 306 missing values
+    ➤ fun_o: Imputed 360 missing values
+    ➤ amb_o: Imputed 722 missing values
+    ➤ shar_o: Imputed 1076 missing values
+    ➤ like: Imputed 240 missing values
+    ➤ prob: Imputed 309 missing values
+    ➤ like_o: Imputed 250 missing values
+    ➤ prob_o: Imputed 318 missing values
+  ➤ Treating preference allocation variables...
+  ➤ Treating lifestyle/interest variables...
+  ➤ Handling follow-up variables...
+    ➤ date_3: Created response indicator, filled 4404 with 0
+    ➤ numdat_3: Created response indicator, filled 6882 with 0
+    ➤ num_in_3: Created response indicator, filled 7710 with 0
+  ➤
+Total imputation operations: 51
+
+================================================================================ 
+STEP 4: Duplicate Detection and Removal
+================================================================================ 
+➤ 4.1 Checking for exact duplicates...
+  ➤ Exact duplicate rows: 0
+➤ 
+4.2 Checking for logical duplicates...
+  ➤ Logical duplicates (same iid+pid+wave): 0
+  ➤
+Final shape after duplicate removal: (8378, 201)
+
+================================================================================ 
+STEP 5: Outlier Detection and Management
+================================================================================ 
+➤ 5.1 Detecting outliers in key numerical variables...
+  ➤ Age outliers (<18 or >70): 0
+    ➤ attr_o: 1 values outside [0, 10]
+    ➤ fun_o: 1 values outside [0, 10]
+  ➤ Income: Winsorizing 165 extreme values
+  ➤
+Outlier detection and treatment completed
+
+================================================================================ 
+STEP 6: Scale Normalization
+================================================================================
+➤ 6.1 Normalizing preference allocation variables (100-point to 10-point scale)...
+  ➤ pf_o_att: Converting from 100-point to 10-point scale
+  ➤ pf_o_sin: Converting from 100-point to 10-point scale
+  ➤ pf_o_int: Converting from 100-point to 10-point scale
+  ➤ pf_o_fun: Converting from 100-point to 10-point scale
+  ➤ pf_o_amb: Converting from 100-point to 10-point scale
+  ➤ pf_o_sha: Converting from 100-point to 10-point scale
+  ➤ attr1_1: Converting from 100-point to 10-point scale
+  ➤ sinc1_1: Converting from 100-point to 10-point scale
+  ➤ intel1_1: Converting from 100-point to 10-point scale
+  ➤ fun1_1: Converting from 100-point to 10-point scale
+  ➤ amb1_1: Converting from 100-point to 10-point scale
+  ➤ shar1_1: Converting from 100-point to 10-point scale
+  ➤ attr4_1: Converting from 100-point to 10-point scale
+  ➤ sinc4_1: Converting from 100-point to 10-point scale
+  ➤ intel4_1: Converting from 100-point to 10-point scale
+  ➤ fun4_1: Converting from 100-point to 10-point scale
+  ➤ amb4_1: Converting from 100-point to 10-point scale
+  ➤ shar4_1: Converting from 100-point to 10-point scale
+➤
+6.2 Verifying rating variables are on consistent scale...
+  ➤ attr: range [0.00, 10.00]
+  ➤ sinc: range [0.00, 10.00]
+  ➤ intel: range [0.00, 10.00]
+  ➤ fun: range [0.00, 10.00]
+  ➤ amb: range [0.00, 10.00]
+  ➤ shar: range [0.00, 10.00]
+  ➤
+Scale normalization completed
+
+================================================================================ 
+STEP 7: Categorical Variable Encoding
+================================================================================ 
+➤ 7.1 Verifying binary variables...
+  ➤ Gender values: [0 1]
+  ➤ Gender distribution: {1: 4194, 0: 4184}
+  ➤ Match values: [0 1]
+  ➤ Match distribution: {0: 6998, 1: 1380}
+➤
+7.2 One-hot encoding nominal variables...
+  ➤ Encoding race variable...
+    ➤ Created 6 race dummy variables
+  ➤ Encoding race_o (partner race) variable...
+    ➤ Created 6 race_o dummy variables
+  ➤ Encoding field_cd variable...
+    ➤ Number of unique fields: 18
+    ➤ Created 18 field dummy variables
+  ➤ Goal variable (ordinal): keeping as numeric
+    ➤ Goal values: [np.float64(1.0), np.float64(2.0), np.float64(3.0), np.float64(4.0), np.float64(5.0), np.float64(6.0)]
+  ➤
+Categorical encoding completed
+
+================================================================================ 
+STEP 8: Feature Engineering - Derived Attributes
+================================================================================ 
+➤ 8.1 Creating perception gap features...
+  ➤ Created 6 perception gap features
+➤
+8.2 Creating age difference features...
+  ➤ Created age_diff (absolute difference)
+  ➤ Created age_gap_category (binned)
+➤
+8.3 Creating preference alignment features...
+  ➤ Created preference_match_score (weighted alignment)
+➤
+8.4 Creating mutual interest indicators...
+  ➤ Created both_interested and one_sided_interest indicators
+➤
+8.5 Creating aggregate rating features...
+  ➤ Created avg_rating_given and rating_given_std
+  ➤ Created avg_rating_received and rating_received_std
+  ➤ Created rating_asymmetry
+➤
+8.6 Creating expectation vs reality features...
+  ➤ Created expectation_reality_gap
+  ➤ Created expected_actual_dates_gap
+➤
+8.7 Creating compatibility features...
+  ➤ samerace indicator already exists
+  ➤ Same field indicator: requires partner field data (not available)
+  ➤
+Feature engineering completed
+  ➤ Total new features created: ~21
+
+================================================================================ 
+STEP 9: Data Type Optimization
+================================================================================ 
+➤ Optimizing data types for memory efficiency...
+  ➤ Downcast 21 integer columns
+  ➤ Converted 194 float64 columns to float32
+  ➤ Converted binary columns to boolean
+  ➤ Converted low-cardinality object columns to category
+  ➤ 
+Memory optimization results:
+    ➤ Original memory: 15.43 MB
+    ➤ Optimized memory: 8.06 MB
+    ➤ Reduction: 47.7%
+
+================================================================================ 
+STEP 10: Final Data Validation
+================================================================================ 
+➤ 10.1 Quality checks...
+  ➤ Missing values in critical columns:
+    ➤ iid: 0
+    ➤ gender: 0
+    ➤ match: 0
+  ➤
+Rating variable ranges (should be 0-10):
+    ➤ attr: [0.00, 10.00] ✓
+    ➤ sinc: [0.00, 10.00] ✓
+    ➤ intel: [0.00, 10.00] ✓
+    ➤ fun: [0.00, 10.00] ✓
+    ➤ amb: [0.00, 10.00] ✓
+    ➤ shar: [0.00, 10.00] ✓
+  ➤ 
+Gender unique values: [np.False_, np.True_]
+  ➤ Match unique values: [np.False_, np.True_]
+  ➤
+Age range: [18.0, 55.0] ✓
+  ➤
+10.2 Verifying derived features...
+    ➤ attr_diff: ✓
+    ➤ age_diff: ✓
+    ➤ avg_rating_given: ✓
+    ➤ avg_rating_received: ✓
+    ➤ rating_asymmetry: ✓
+  ➤
+10.3 Final dataset statistics:
+    ➤ Final shape: (8378, 249)
+    ➤ Final columns: 249
+    ➤ Final rows: 8378
+    ➤ Total missing values: 415734
+    ➤ Missing value percentage: 19.93%
+
+================================================================================ 
+STEP 11: Export Cleaned Data
+================================================================================ 
+➤ Exporting cleaned dataset to: Speed_Dating_Data_Cleaned.csv
+  ➤ ✓ Exported successfully!
+  ➤ ✓ Backup with timestamp created: Speed_Dating_Data_Cleaned_20251110_160728.csv
+  ➤ Parquet export skipped (pyarrow not available): Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.
+➤
+Generating cleaning report...
+  ➤ ✓ Cleaning report saved: Data_Cleaning_Report_20251110_160728.txt
+
+================================================================================ 
+DATA CLEANING PIPELINE COMPLETED SUCCESSFULLY!
+================================================================================ 
+
+Output files created:
+  1. Speed_Dating_Data_Cleaned.csv
+  2. Speed_Dating_Data_Cleaned_20251110_160728.csv
+  3. Data_Cleaning_Report_20251110_160728.txt
+
+Dataset is now ready for analysis and modeling!
+================================================================================ 
