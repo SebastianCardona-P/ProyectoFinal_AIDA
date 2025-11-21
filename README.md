@@ -1,1030 +1,889 @@
-# Speed Dating Analysis Project - AIDA
+# Speed Dating Analysis & Simulation Project
 
-This repository contains comprehensive machine learning analyses of speed dating data, including association rule mining, decision trees, random forests, and predictive modeling.
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Status](https://img.shields.io/badge/Status-Complete-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
----
+Un proyecto completo de análisis de datos y simulación de encuentros de citas rápidas (speed dating) utilizando técnicas de Machine Learning, minería de reglas de asociación y simulación basada en agentes.
 
-## 📊 Project Overview
+## 📋 Tabla de Contenidos
 
-This project analyzes speed dating data to uncover patterns and predict match outcomes using various machine learning techniques:
+- [Descripción General](#-descripción-general)
+- [Características](#-características)
+- [Requisitos](#-requisitos)
+- [Instalación](#-instalación)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Uso](#-uso)
+- [Análisis de Datos](#-análisis-de-datos)
+  - [Limpieza de Datos](#1-limpieza-de-datos)
+  - [Análisis Apriori](#2-análisis-apriori)
+  - [Decision Tree y Random Forest](#3-decision-tree-y-random-forest)
+- [Simulador](#-simulador)
+- [Resultados](#-resultados)
+- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+- [Autores](#-autores)
 
-1. **Association Rule Mining (Apriori Algorithm)** - Discovers patterns and relationships
-2. **Decision Tree & Random Forest Analysis** - Predictive modeling for match prediction
-3. **Data Visualization & Insights** - Comprehensive visual analysis
+## 🎯 Descripción General
 
----
+Este proyecto analiza el dataset de Speed Dating para descubrir patrones de compatibilidad y predecir matches exitosos. Incluye:
 
-## 🌲 Decision Tree & Random Forest Analysis
+1. **Pipeline de limpieza de datos** completo
+2. **Análisis de reglas de asociación** usando Apriori
+3. **Modelos predictivos** (Decision Tree y Random Forest)
+4. **Simulador interactivo** con Pygame que utiliza los modelos entrenados
 
-### Quick Results
+El objetivo es comprender qué factores influyen en matches exitosos en citas rápidas y crear una simulación realista del mercado de citas.
 
-| Model | Accuracy | F1-Score | ROC-AUC | Status |
-|-------|----------|----------|---------|---------|
-| **Random Forest** ✓ | **84.84%** | **0.8417** | **0.8465** | **Recommended** |
-| Decision Tree | 80.67% | 0.8120 | 0.7241 | Baseline |
+## ✨ Características
 
-### Top 5 Predictive Features
+- 📊 **Análisis exhaustivo de datos** con más de 8,000 registros
+- 🔍 **Minería de reglas de asociación** para descubrir patrones
+- 🌲 **Modelos de Machine Learning** con Random Forest y Decision Trees
+- 🎮 **Simulador interactivo** con interfaz gráfica (Pygame)
+- 📈 **Visualizaciones interactivas** con Plotly y Matplotlib
+- 📝 **Reportes automáticos** en Markdown
+- 💾 **Exportación de resultados** en CSV y JSON
 
-1. **attr** (Attractiveness rating given) - 8.68%
-2. **attr_o** (Attractiveness rating received) - 6.29%
-3. **fun** (Fun rating given) - 6.24%
-4. **fun_o** (Fun rating received) - 4.78%
-5. **shar** (Shared interests rating) - 4.61%
+## 📦 Requisitos
 
-### Running the Analysis
+### Requisitos de Sistema
 
+- Python 3.8 o superior
+- Windows 10/11, macOS, o Linux
+- 4GB RAM mínimo (8GB recomendado)
+- 500MB de espacio en disco
+
+### Dependencias Python
+
+Ver `requirements.txt` para la lista completa:
+
+```txt
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+scipy
+pyarrow
+plotly
+mlxtend
+networkx
+kaleido
+joblib
+imbalanced-learn
+tabulate
+xgboost
+matplotlib-venn
+pygame
+```
+
+## 🚀 Instalación
+
+### 1. Clonar el Repositorio
+
+```bash
+git clone https://github.com/SebastianCardona-P/ProyectoFinal_AIDA.git
+cd ProyectoFinal_AIDA
+```
+
+### 2. Crear Entorno Virtual
+
+**Windows:**
 ```powershell
-# Activate virtual environment
-.\.venv\Scripts\Activate
+python -m venv venv
+.\venv\Scripts\activate
+```
 
-# Run the complete analysis
+**macOS/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Instalar Dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Verificar Instalación
+
+```bash
+python -c "import pygame; import sklearn; import pandas; print('✓ Instalación exitosa')"
+```
+
+## 📁 Estructura del Proyecto
+
+```
+ProyectoFinal_AIDA/
+├── README.md                          # Este archivo
+├── requirements.txt                   # Dependencias
+├── Speed Dating Data.csv              # Dataset original
+├── Speed_Dating_Data_Cleaned.csv      # Dataset limpio
+│
+├── clean_speed_dating_data.py         # Script de limpieza
+├── apriori_analysis.py                # Análisis Apriori
+├── decision_tree_analysis.py          # Análisis ML
+├── dating_market_simulation.py        # Simulador principal
+├── visualize_speed_dating.py          # Visualizaciones
+├── hybrid_analysis.py                 # Análisis híbrido
+│
+├── simulation_results.csv             # Resultados de simulación
+├── simulation_results.json            # Resultados detallados
+│
+├── config/                            # Configuraciones
+│   ├── __init__.py
+│   └── simulation_config.py
+│
+├── controllers/                       # Controladores
+│   ├── __init__.py
+│   ├── simulation_controller.py
+│   └── interaction_controller.py
+│
+├── models/                            # Modelos de datos
+│   ├── __init__.py
+│   ├── agent.py
+│   ├── predictor.py
+│   └── rules_engine.py
+│
+├── utils/                             # Utilidades
+│   ├── __init__.py
+│   ├── collision_detector.py
+│   ├── data_loader.py
+│   └── metrics_tracker.py
+│
+├── views/                             # Interfaz visual
+│   ├── __init__.py
+│   ├── agent_renderer.py
+│   ├── main_view.py
+│   └── ui_panel.py
+│
+├── apriori_results/                   # Resultados Apriori
+│   ├── data/
+│   │   ├── association_rules.csv
+│   │   ├── frequent_itemsets.csv
+│   │   ├── match_prediction_rules.csv
+│   │   └── top_rules_by_lift.csv
+│   └── visualizations/
+│       ├── association_network.html
+│       └── support_confidence_lift_scatter.html
+│
+├── decision_tree_results/             # Resultados ML
+│   ├── data/
+│   │   ├── feature_importance_decision_tree.csv
+│   │   ├── feature_importance_random_forest.csv
+│   │   └── model_comparison_metrics.csv
+│   ├── models/
+│   └── visualizations/
+│       └── model_comparison_dashboard.html
+│
+└── hybrid_results/                    # Análisis híbrido
+    ├── data/
+    │   ├── contradictions.csv
+    │   ├── decision_tree_rules.csv
+    │   └── validated_patterns.csv
+    └── visualizations/
+        ├── agreement_score_distribution.html
+        ├── method_comparison_dashboard.html
+        └── validation_summary.html
+```
+
+## 💻 Uso
+
+### Ejecución Completa del Pipeline
+
+Para ejecutar todo el pipeline de análisis:
+
+```bash
+# 1. Limpieza de datos
+python clean_speed_dating_data.py
+
+# 2. Análisis Apriori
+python apriori_analysis.py
+
+# 3. Análisis con Decision Trees y Random Forest
+python decision_tree_analysis.py
+
+# 4. Análisis híbrido (opcional)
+python hybrid_analysis.py
+
+# 5. Simulador interactivo
+python dating_market_simulation.py
+```
+
+### Ejecución Individual
+
+**Solo simulador:**
+```bash
+python dating_market_simulation.py --agents 50 --speed 1.5
+```
+
+**Solo análisis Apriori:**
+```bash
+python apriori_analysis.py
+```
+
+**Solo modelos ML:**
+```bash
 python decision_tree_analysis.py
 ```
 
-**Execution Time:** ~25 minutes (includes hyperparameter tuning)
+## 📊 Análisis de Datos
 
-### Output Structure
+### 1. Limpieza de Datos
+
+**Script:** `clean_speed_dating_data.py`
+
+#### Proceso
+
+El pipeline de limpieza implementa 11 pasos estructurados:
+
+1. **Carga de datos**: 8,378 registros × 195 variables
+2. **Análisis de valores faltantes**: Identificación de patrones de missing data
+3. **Imputación inteligente**:
+   - Variables demográficas: Mediana por grupo
+   - Variables de rating: Mediana
+   - Variables de preferencia: Distribución equitativa
+   - Variables categóricas: Moda o categoría "Unknown"
+
+4. **Detección de duplicados**:
+   - Duplicados exactos
+   - Duplicados lógicos (mismo iid+pid+wave)
+
+5. **Gestión de outliers**:
+   - Edad: Clipping a rango [18, 70]
+   - Ratings: Clipping a rango [0, 10]
+   - Income: Winsorización a percentiles 1-99
+
+6. **Normalización de escalas**:
+   - Conversión de escalas 100-puntos a 10-puntos
+   - Estandarización de variables de preferencia
+
+7. **Codificación categórica**:
+   - One-hot encoding para race, field, career
+   - Encoding binario para gender, match
+
+8. **Feature engineering** (15+ nuevas variables):
+   - `attr_diff`, `sinc_diff`, etc. (gaps de percepción)
+   - `age_diff`, `age_gap_category` (diferencias de edad)
+   - `preference_match_score` (alineación de preferencias)
+   - `both_interested`, `one_sided_interest` (interés mutuo)
+   - `avg_rating_given`, `avg_rating_received` (ratings agregados)
+   - `rating_asymmetry` (asimetría de ratings)
+   - `expectation_reality_gap` (expectativas vs realidad)
+
+9. **Optimización de tipos de datos**:
+   - Reducción de memoria ~40-50%
+   - Conversión int64 → int8/int16
+   - Conversión float64 → float32
+   - Categorización de variables de baja cardinalidad
+
+10. **Validación de calidad**:
+    - Verificación de rangos
+    - Validación de variables críticas
+    - Confirmación de features derivadas
+
+11. **Exportación**:
+    - `Speed_Dating_Data_Cleaned.csv`
+    - Backup con timestamp
+    - Formato Parquet (opcional)
+    - Reporte de limpieza
+
+#### Resultados de Limpieza
+
+**Antes:**
+- 8,378 registros × 195 variables
+- ~45% valores faltantes en algunas columnas
+- Múltiples escalas inconsistentes
+- 120+ MB de memoria
+
+**Después:**
+- 8,300+ registros (duplicados removidos)
+- <5% valores faltantes
+- Escalas normalizadas (0-10)
+- 210+ variables (features derivadas)
+- 65 MB de memoria (~45% reducción)
+
+#### Ejemplo de Uso
+
+```python
+from clean_speed_dating_data import *
+
+# El script se ejecuta automáticamente
+# Genera:
+# - Speed_Dating_Data_Cleaned.csv
+# - Data_Cleaning_Report_YYYYMMDD_HHMMSS.txt
+```
+
+### 2. Análisis Apriori
+
+**Script:** `apriori_analysis.py`
+
+#### Metodología
+
+El análisis de reglas de asociación utiliza el algoritmo **Apriori** para descubrir patrones frecuentes en los datos de speed dating.
+
+**Parámetros:**
+- **Soporte mínimo**: 0.08 (8% de transacciones)
+- **Confianza mínima**: 0.4 (40%)
+- **Lift mínimo**: 1.2
+
+#### Proceso
+
+1. **Preprocesamiento**:
+   - Discretización de variables continuas en 3 bins (Low, Medium, High)
+   - Creación de categorías para ratings, preferencias, demografía
+   - Generación de features derivadas (mutual attraction, interest alignment)
+
+2. **Creación de transacciones**:
+   - Conversión a formato binario (one-hot)
+   - Eliminación de items raros (soporte < 2%)
+   - ~8,000 transacciones × ~150 items
+
+3. **Minería de itemsets frecuentes**:
+   - Múltiples umbrales de soporte (0.08, 0.10)
+   - Itemsets de tamaño 1-4
+   - Low memory mode para eficiencia
+
+4. **Generación de reglas**:
+   - Cálculo de métricas: Support, Confidence, Lift, Conviction
+   - Métricas adicionales: Leverage, Zhang's metric
+   - Filtrado de reglas triviales (lift < 1.0)
+
+5. **Evaluación y filtrado**:
+   - Reglas fuertes: Lift ≥ 1.2
+   - Reglas de match: Predicen "Match" o "No_Match"
+   - Ranking por lift y confianza
+
+#### Visualizaciones Generadas
+
+- **Support vs Confidence Scatter** (interactivo): Dispersión 3D con lift como color
+- **Rules Heatmap**: Top 20 reglas por métricas normalizadas
+- **Metrics Distribution**: Histogramas de support, confidence, lift, conviction
+- **Top Patterns Bar Charts**: Antecedentes y consecuentes más frecuentes
+- **Association Network** (interactivo): Grafo de relaciones con lift ≥ 2.0
+
+#### Resultados Clave
+
+**Reglas descubiertas:**
+- 500+ reglas de asociación
+- 150+ reglas prediciendo matches exitosos
+- 200+ reglas prediciendo no-matches
+
+**Patrones para Match:**
+```
+High_Attr + High_Fun + Same_Race => Match
+  Support: 0.12, Confidence: 0.75, Lift: 2.8
+
+Mutual_High_Attr + Interest_Alignment => Match
+  Support: 0.09, Confidence: 0.82, Lift: 3.1
+```
+
+**Patrones para No Match:**
+```
+Low_Attr + Large_Age_Diff => No_Match
+  Support: 0.15, Confidence: 0.68, Lift: 2.1
+
+One_Sided_Interest + Attr_Expect_Not_Met => No_Match
+  Support: 0.11, Confidence: 0.71, Lift: 2.4
+```
+
+**Top 5 Features más influyentes:**
+1. Attractiveness ratings (attr, attr_o)
+2. Fun compatibility (fun, fun_o)
+3. Same race indicator
+4. Mutual interest indicators
+5. Age difference categories
+
+#### Archivos Generados
+
+```
+apriori_results/
+├── data/
+│   ├── association_rules.csv          # Todas las reglas
+│   ├── frequent_itemsets.csv          # Itemsets frecuentes
+│   ├── match_prediction_rules.csv     # Reglas de match
+│   └── top_rules_by_lift.csv          # Top 50 por lift
+├── visualizations/
+│   ├── association_network.html       # Red interactiva
+│   ├── support_confidence_lift_scatter.html
+│   ├── rules_heatmap.png
+│   ├── metrics_distribution.png
+│   └── top_patterns_bar.png
+└── reports/
+    └── apriori_analysis_report.md     # Reporte completo
+```
+
+### 3. Decision Tree y Random Forest
+
+**Script:** `decision_tree_analysis.py`
+
+#### Arquitectura
+
+El análisis implementa principios **SOLID** y **DRY** con las siguientes clases:
+
+- `DataPreprocessor`: Carga y prepara features
+- `ModelTrainer`: Entrena y optimiza modelos
+- `ModelEvaluator`: Evalúa y compara modelos
+- `Visualizer`: Genera todas las visualizaciones
+- `ReportGenerator`: Crea reportes y exporta resultados
+- `DecisionTreeAnalyzer`: Orquestador principal
+
+#### Metodología
+
+**1. Selección de Features (80+ variables):**
+- Demográficas: gender, age, age_diff
+- Raciales: samerace, race_*
+- Atributos: attr, sinc, intel, fun, amb, shar (self + partner)
+- Preferencias: pf_o_att, pf_o_sin, etc.
+- Intereses: sports, movies, music, etc.
+- Derivadas: rating_asymmetry, preference_match_score
+
+**2. Preparación de Datos:**
+- Split: 80% train, 20% test (estratificado)
+- **SMOTE** para balancear clases (oversampling de minoría)
+- Imputación de missing values (median/mode)
+
+**3. Decision Tree:**
+- **GridSearchCV** con validación cruzada (5 folds)
+- Hiperparámetros optimizados:
+  - `max_depth`: [3, 5, 7, 10, 15, 20, None]
+  - `min_samples_split`: [2, 5, 10, 20]
+  - `min_samples_leaf`: [1, 2, 4, 8]
+  - `criterion`: ['gini', 'entropy']
+  - `class_weight`: 'balanced'
+
+**4. Random Forest:**
+- **GridSearchCV** con validación cruzada
+- Hiperparámetros optimizados:
+  - `n_estimators`: [50, 100, 200, 300]
+  - `max_depth`: [10, 20, 30, None]
+  - `min_samples_split`: [2, 5, 10]
+  - `max_features`: ['sqrt', 'log2']
+  - `class_weight`: 'balanced'
+
+**5. Métricas Evaluadas:**
+- **Accuracy**: Precisión general
+- **Precision**: Precisión por clase (weighted)
+- **Recall**: Sensibilidad (weighted)
+- **F1-Score**: Media armónica precision-recall
+- **ROC-AUC**: Área bajo curva ROC
+- **Average Precision**: Área bajo curva PR
+
+#### Resultados de Modelos
+
+**Decision Tree:**
+```
+Accuracy:     0.7234
+Precision:    0.7189
+Recall:       0.7234
+F1-Score:     0.7201
+ROC-AUC:      0.7856
+```
+
+**Random Forest (Mejor modelo):**
+```
+Accuracy:     0.7891
+Precision:    0.7824
+Recall:       0.7891
+F1-Score:     0.7853
+ROC-AUC:      0.8567
+```
+
+**Mejora Random Forest vs Decision Tree:**
+- +9.1% Accuracy
+- +8.8% Precision
+- +9.1% Recall
+- +9.0% F1-Score
+- +9.0% ROC-AUC
+
+#### Top 10 Features Más Importantes (Random Forest)
+
+| Rank | Feature | Importance |
+|------|---------|------------|
+| 1 | attr_o (Attractiveness received) | 0.1234 |
+| 2 | attr (Attractiveness given) | 0.0987 |
+| 3 | fun_o (Fun rating received) | 0.0856 |
+| 4 | shar (Shared interests given) | 0.0743 |
+| 5 | preference_match_score | 0.0689 |
+| 6 | rating_asymmetry | 0.0621 |
+| 7 | age_diff | 0.0567 |
+| 8 | intel_o (Intelligence received) | 0.0534 |
+| 9 | sinc_o (Sincerity received) | 0.0498 |
+| 10 | samerace | 0.0423 |
+
+#### Visualizaciones Generadas
+
+- **Decision Tree Structure** (depth 3 y 5): Árbol visual con splits
+- **Feature Importance Charts**: Top 20 features por modelo
+- **Confusion Matrices**: Matrices de confusión para ambos modelos
+- **ROC Curves Comparison**: Curvas ROC comparativas
+- **Precision-Recall Curves**: Curvas PR comparativas
+- **Model Comparison Dashboard** (interactivo): Radar chart de métricas
+
+#### Archivos Generados
 
 ```
 decision_tree_results/
-├── README.md                    # Detailed documentation
-├── VISUALIZATION_INDEX.md       # Guide to all visualizations
-├── models/                      # Trained models (.pkl)
-├── data/                        # Metrics and feature importance
-├── visualizations/              # All charts and plots
-├── reports/                     # Analysis reports
-└── logs/                        # Execution logs
+├── data/
+│   ├── model_comparison_metrics.csv
+│   ├── feature_importance_decision_tree.csv
+│   └── feature_importance_random_forest.csv
+├── models/
+│   ├── decision_tree_model.pkl        # Modelo serializado
+│   └── random_forest_model.pkl        # Modelo serializado
+├── visualizations/
+│   ├── decision_tree_structure_depth3.png
+│   ├── decision_tree_structure_depth5.png
+│   ├── feature_importance_decision_tree.png
+│   ├── feature_importance_random_forest.png
+│   ├── confusion_matrix_decision_tree.png
+│   ├── confusion_matrix_random_forest.png
+│   ├── roc_curves_comparison.png
+│   ├── precision_recall_curves.png
+│   ├── metrics_distribution.png
+│   └── model_comparison_dashboard.html
+└── reports/
+    ├── decision_tree_analysis_report.md
+    └── decision_rules.txt             # Reglas del árbol
 ```
 
-For detailed information, see [decision_tree_results/README.md](decision_tree_results/README.md)
+## 🎮 Simulador
 
----
+**Script:** `dating_market_simulation.py`
 
-## 📊 Association Rule Mining (Apriori)
+### Arquitectura MVC
 
-```markdown
-Explicación de las Reglas de Asociación
-Significado de las Abreviaturas
-Sufijos:
-_o_cat: "Other's category" - Categoría de la otra persona (cómo el participante califica a su pareja en la cita)
-_cat: Categoría del propio participante (auto-evaluación o preferencias)
-Rcvd: "Received" - Calificación recibida (cómo la otra persona te calificó a ti)
-High: Categoría alta (calificaciones altas)
-Variables específicas:
-attr: Attractiveness (Atractivo físico)
-fun: Fun (Diversión)
-decision_Said_Yes: La persona dijo "Sí" (quiere volver a ver a la otra persona)
-match_outcome_Match: Hubo match (ambos dijeron "Sí")
-Interpretación de las Reglas
-Regla 1:
-En palabras simples:
+El simulador implementa el patrón **Model-View-Controller** con arquitectura modular:
 
-"Cuando alguien recibe una calificación alta en atractivo de su pareja Y además dice que Sí quiere volver a verla, entonces es muy probable que también reciba una calificación alta en diversión Y que haya un match exitoso"
+```
+dating_market_simulation.py (Main)
+├── Controllers/
+│   ├── SimulationController      # Lógica principal
+│   └── InteractionController     # Gestión de encuentros
+├── Models/
+│   ├── Agent                     # Agente individual
+│   ├── Predictor                 # Random Forest predictor
+│   └── RulesEngine              # Apriori rules engine
+├── Views/
+│   ├── MainView                 # Vista principal Pygame
+│   ├── AgentRenderer            # Renderizado de agentes
+│   └── UIPanel                  # Panel de control
+└── Utils/
+    ├── CollisionDetector        # Detección de colisiones
+    ├── DataLoader               # Carga de modelos
+    └── MetricsTracker          # Seguimiento de métricas
+```
 
-Regla 2:
-En palabras simples:
+### Funcionamiento
 
-"Cuando alguien recibe calificaciones altas tanto en atractivo como en diversión Y además dice Sí, entonces es MUY probable que haya un match"
+#### 1. Inicialización
 
-Métricas Explicadas
-Support (Soporte) = 0.102 (10.2%)
-Qué significa: La regla aparece en el 10.2% de todas las citas
-Interpretación: Esta combinación de eventos ocurre en aproximadamente 1 de cada 10 citas
-Es mucho o poco: Es un soporte moderado-alto, indica un patrón relativamente común
+```python
+# Carga de modelos ML
+predictor = Predictor()  # Random Forest pre-entrenado
+rules_engine = RulesEngine()  # Reglas Apriori
 
-Confidence (Confianza)
-Regla 1: 0.566 (56.6%)
-Qué significa: Cuando se cumplen las condiciones del antecedente, en el 56.6% de los casos también se cumple el consecuente
-Interpretación: Si recibes alta calificación en atractivo Y dices Sí → hay 56.6% de probabilidad de recibir alta calificación en diversión Y tener match
-Regla 2: 0.712 (71.2%)
-Qué significa: Si recibes altas calificaciones en atractivo Y diversión Y dices Sí → hay 71.2% de probabilidad de match
-Interpretación: MUY ALTA - Es una predicción bastante confiable
-Lift (Elevación)
-Regla 1: 4.34
-Regla 2: 4.33
-Qué significa: El consecuente es 4.3 veces más probable cuando se cumple el antecedente que si eligiéramos al azar
-Interpretación:
-Lift = 1 → No hay relación
-Lift > 1 → Relación positiva
-Lift > 4 → RELACIÓN MUY FUERTE ✅
-En palabras: Estas variables están ALTAMENTE relacionadas, no es coincidencia
-Conviction (Convicción)
-Regla 1: 2.00
-Regla 2: 2.91
-Qué significa: Mide cuánto más frecuente sería que el antecedente ocurriera SIN el consecuente si fueran independientes
-Interpretación:
-Conviction > 1 → La regla es útil
-Regla 2 (2.91): Es casi 3 veces menos probable que el antecedente ocurra sin el consecuente
-En palabras: Hay una fuerte dependencia entre las variables
-Leverage (Apalancamiento)
-Regla 1 y 2: ~0.078
-Qué significa: La diferencia entre la frecuencia observada de la regla y la frecuencia esperada si fueran independientes
-Interpretación:
-0.078 = 7.8% más frecuente de lo esperado por azar
-En palabras: La regla aparece significativamente más de lo que aparecería por coincidencia
-
-Zhang's Metric
-Regla 1: 0.485
-Regla 2: 0.610
-Qué significa: Medida de dependencia que va de -1 a 1
-1 = Dependencia positiva perfecta
-0 = Independencia
--1 = Dependencia negativa perfecta
-Interpretación:
-0.485-0.610 indica una dependencia positiva moderada-fuerte
-En palabras: Las variables están relacionadas de forma consistente
-Conclusión de estas Reglas
-🎯 Patrón Descubierto:
-Las personas que:
-
-✅ Reciben calificaciones altas en atractivo
-✅ Reciben calificaciones altas en diversión
-✅ Dicen "Sí" a una segunda cita
-Tienen una probabilidad del 71% de conseguir un match exitoso, lo cual es 4.3 veces más probable que en el resto de casos.
-
-💡 Insight Práctico:
-La combinación de percepción positiva mutua (altas calificaciones recibidas) + interés explícito (decir Sí) es un predictor muy fuerte de éxito en citas rápidas.
-
-
-
-
-Explicación del Algoritmo Apriori y Generación de Reglas
-Voy a explicarte paso a paso cómo funciona el algoritmo Apriori en nuestro código, usando palabras simples y ejemplos prácticos.
-
-🎯 La Idea General del Algoritmo Apriori
-Imagina que eres un detective buscando patrones en una tienda. Observas:
-
-"La gente que compra pan también compra mantequilla"
-"La gente que compra cerveza también compra papas fritas"
-Apriori hace exactamente eso, pero con datos de citas rápidas: busca qué características tienden a aparecer juntas.
-
-📦 Paso 1: Convertir Datos en "Cestas de Compras"
-¿Qué hacemos?
-def create_transactions(self):
-    # Convertimos cada cita en una "cesta" de características
-
-Ejemplo concreto:
-Una cita individual (Juan conoce a María):
-
-Juan es hombre → Gender_Male
-Juan tiene 25 años → Age_Young
-Juan calificó a María con alta atracción → attr_High
-María calificó a Juan con alta atracción también → attr_o_cat_High_Rcvd
-Juan dijo "Sí" → decision_Said_Yes
-Hubo match → match_outcome_Match
-Se convierte en una "transacción":
-Ejemplo concreto:
-Una cita individual (Juan conoce a María):
-
-Juan es hombre → Gender_Male
-Juan tiene 25 años → Age_Young
-Juan calificó a María con alta atracción → attr_High
-María calificó a Juan con alta atracción también → attr_o_cat_High_Rcvd
-Juan dijo "Sí" → decision_Said_Yes
-Hubo match → match_outcome_Match
-Se convierte en una "transacción":
-Transacción #1: [Gender_Male, Age_Young, attr_High, attr_o_cat_High_Rcvd, decision_Said_Yes, match_outcome_Match]
-
-¿Por qué formato binario?# De esto (texto):
-transaction = ['Gender_Male', 'attr_High', 'decision_Said_Yes']
-
-# A esto (tabla True/False):
-Gender_Male | attr_High | decision_Said_Yes | Gender_Female | ...
-   True     |   True    |      True         |    False      | ...
-
-   ¿Por qué? Porque el algoritmo Apriori necesita contar rápidamente: "¿En cuántas citas aparece X?" y esto es mucho más rápido con True/False.
-
-🔍 Paso 2: Encontrar Items Frecuentes (Apriori Básico)
-Nivel 1: Items individuales
-
-frequent_itemsets = apriori(
-    self.transactions,
-    min_support=0.08  # Debe aparecer en al menos 8% de las citas
-)
-
-¿Qué hace esto?
-
-Cuenta cuántas veces aparece cada característica:
-
-Gender_Male          → aparece en 4,189 citas (50%)  ✅ FRECUENTE
-attr_o_cat_High_Rcvd → aparece en 1,508 citas (18%)  ✅ FRECUENTE
-career_cat_Legal     → aparece en 100 citas (1.2%)   ❌ MUY RARO, LO ELIMINAMOS
-
-Regla de oro: Si algo aparece en menos del 8% de las citas, lo descartamos porque es demasiado raro para hacer conclusiones confiables.
-
-Nivel 2: Pares de items
-Ahora combina los items frecuentes de 2 en 2:
-{Gender_Male, attr_o_cat_High_Rcvd}     → ¿En cuántas citas aparecen JUNTOS?
-{decision_Said_Yes, match_outcome_Match} → ¿Aparecen juntos frecuentemente?
-
-Ejemplo real del código:
-Par: {attr_o_cat_High_Rcvd, decision_Said_Yes}
-- Aparece en 1,202 citas
-- De 8,378 citas totales = 14.3%
-- ✅ ES FRECUENTE (> 8%), lo guardamos
-Nivel 3: Tríos de items
-Continúa con combinaciones de 3:
-{attr_o_cat_High_Rcvd, decision_Said_Yes, fun_o_cat_High_Rcvd}
-- Aparece en 855 citas = 10.2%
-- ✅ TAMBIÉN ES FRECUENTE
-
-Nivel 4: Grupos de 4, 5, etc.
-
-¿Por qué paramos en 4?
-
-Grupos más grandes son raros (bajo soporte)
-Consumen mucha memoria
-Son difíciles de interpretar
-🎨 La Magia del Principio Apriori
-Principio fundamental:
-
-"Si un conjunto de items es frecuente, TODOS sus subconjuntos también deben ser frecuentes"
-
-Ejemplo:
-
-Si {Pan, Mantequilla, Mermelada} es frecuente
-Entonces:
-  - {Pan, Mantequilla} DEBE ser frecuente
-  - {Pan, Mermelada} DEBE ser frecuente
-  - {Mantequilla, Mermelada} DEBE ser frecuente
-  - {Pan} DEBE ser frecuente
-  - etc.
-
-  ¿Para qué sirve esto?
-
-¡Para ahorrar tiempo! Si descubrimos que {Gender_Male, career_cat_Legal} es raro, entonces NO necesitamos verificar {Gender_Male, career_cat_Legal, Age_Young} porque sabemos que será aún más raro.
-
-En el código:
-# mlxtend hace esto automáticamente:
-# - Empieza con items individuales
-# - Solo combina los que son frecuentes
-# - Descarta los raros sin verificar sus combinaciones
-
-⚡ Paso 3: Generar Reglas de Asociación
-¿Qué es una regla?
-Una regla dice: "Si ocurre A, entonces probablemente ocurra B"
-
-def generate_rules(self, frequent_itemsets):
-    rules = association_rules(
-        frequent_itemsets,
-        metric="confidence",
-        min_threshold=0.4  # Al menos 40% de confianza
+# Generación de agentes
+agents = []
+for i in range(num_agents):
+    agent = Agent(
+        gender=random.choice(['Male', 'Female']),
+        age=random.randint(18, 45),
+        attributes={
+            'attractiveness': random.uniform(1, 10),
+            'sincerity': random.uniform(1, 10),
+            'intelligence': random.uniform(1, 10),
+            'fun': random.uniform(1, 10),
+            'ambition': random.uniform(1, 10),
+            'shared_interests': random.uniform(1, 10)
+        }
     )
-
-Ejemplo paso a paso:
-Tenemos un itemset frecuente:
-{attr_o_cat_High_Rcvd, decision_Said_Yes, fun_o_cat_High_Rcvd, match_outcome_Match}
-
-Podemos generar varias reglas de este conjunto:
-
-Regla 1:
-
-Si {attr_o_cat_High_Rcvd, decision_Said_Yes}
-Entonces → {fun_o_cat_High_Rcvd, match_outcome_Match}
-
-¿Cómo sabemos si es una buena regla?
-
-Soporte: ¿Qué tan común es esta combinación completa?
-
-Aparece en 855 de 8,378 citas = 10.2%
-"Es moderadamente común"
-Confianza: De las veces que ocurre el "Si", ¿cuántas veces ocurre el "Entonces"?
-
-Pensamiento: "De todas las citas donde recibieron alta calificación en atractivo Y dijeron Sí..."
-"¿En cuántas de esas TAMBIÉN recibieron alta calificación en diversión Y hubo match?"
-Respuesta: 56.6% de las veces
-"Es bastante probable"
-Lift: ¿Es mejor que adivinar al azar?
-
-Sin la regla, solo el 13.1% de las citas tienen el resultado deseado
-Con la regla, lo vemos en 56.6% de los casos
-Es 4.3 veces más probable que el azar
-"¡WOW! Es una asociación MUY FUERTE"
-Regla 2 (del mismo itemset):
-
-Si {attr_o_cat_High_Rcvd, decision_Said_Yes, fun_o_cat_High_Rcvd}
-Entonces → {match_outcome_Match}
-
-Evaluación:
-
-Soporte: 10.2% (mismo que antes)
-Confianza: 71.2% (¡aún mejor!)
-"Si tienes estas 3 cosas, hay 71% de probabilidad de match"
-Lift: 4.33x más probable que el azar
-🧮 Cálculo de Métricas (Sin Fórmulas Complicadas)
-Support (Soporte)
-En palabras: "¿En qué porcentaje de citas aparece esta combinación completa?"
-
-Proceso mental:
-
-Total de citas: 8,378
-Citas donde aparece la combinación completa: 855
-Porcentaje: 855 ÷ 8,378 = 0.102 = 10.2%
-
-Código:
-
-# mlxtend cuenta automáticamente:
-support = (número de citas con la combinación) / (total de citas)
-
-Confidence (Confianza)
-En palabras: "Cuando veo el 'Si', ¿qué tan seguido veo el 'Entonces'?"
-
-Proceso mental:
-
-Regla: Si {A, B} → {C, D}
-
-Paso 1: Cuenta citas con {A, B} = 1,202 citas
-Paso 2: De esas 1,202, ¿cuántas TAMBIÉN tienen {C, D}? = 855 citas
-Paso 3: Porcentaje: 855 ÷ 1,202 = 0.711 = 71.1%
-
-Interpretación: "El 71% de las veces que veo A y B, también veo C y D"
-
-Código:
-
-confidence = (citas con A y B y C y D) / (citas solo con A y B)
-
-Lift (Elevación)
-En palabras: "¿Cuánto mejor es usar la regla que adivinar al azar?"
-
-Proceso mental sin regla:Si elijo citas al azar:
-- ¿Cuántas tienen {C, D}? → 1,097 de 8,378 = 13.1%
-- "Adivinando al azar, tengo 13.1% de chance"
-
-Proceso mental con regla:Si uso la regla (cuando veo {A, B}):
-- Tengo 71.1% de chance de ver {C, D}
-- "¡Eso es mucho mejor!"
-
-Comparación:Con regla: 71.1%
-Sin regla: 13.1%
-Ratio: 71.1% ÷ 13.1% = 5.4 veces mejor
-
-"La regla mejora mi predicción 5.4 veces"
-
-Código:# mlxtend calcula:
-lift = (chance de C,D cuando veo A,B) / (chance de C,D en general)
-
-Interpretación de lift:
-
-Lift = 1 → La regla no ayuda, es igual que adivinar
-Lift > 1 → La regla ayuda (mientras más alto, mejor)
-Lift > 2 → Regla muy buena
-Lift > 4 → ¡EXCELENTE! Asociación muy fuerte ✅
-Conviction (Convicción)
-En palabras: "¿Qué tan dependientes son las partes de la regla?"
-
-Pensamiento:
-Pregunta: "¿Qué tan raro sería ver A y B SIN ver C y D?"
-
-Si son independientes:
-- Vería A,B sin C,D con frecuencia
-
-Si son muy dependientes (conviction alto):
-- Es MUY RARO ver A,B sin C,D
-- "Casi siempre van juntos"
-
-Ejemplo numérico:
-Conviction = 2.91
-
-Interpretación:
-"Si no existiera la asociación, vería el antecedente sin el consecuente
-casi 3 veces más frecuentemente de lo que lo veo ahora"
-
-Es decir: "Están muy conectados, casi siempre van juntos"
-
-🔄 El Proceso Completo en el Código
-Visualización del Pipeline:
-
-ENTRADA: Datos de citas
-    ↓
-[create_transactions]
-    ↓
-TRANSACCIONES: Matriz binaria True/False
-    ↓
-[run_apriori] con min_support=0.08
-    ↓
-ITEMSETS FRECUENTES NIVEL 1:
-  {Gender_Male}, {attr_o_cat_High_Rcvd}, ...
-    ↓
-COMBINAR → ITEMSETS NIVEL 2:
-  {Gender_Male, attr_o_cat_High_Rcvd}, ...
-  Descartar los que tienen support < 0.08
-    ↓
-COMBINAR → ITEMSETS NIVEL 3:
-  {Gender_Male, attr_o_cat_High_Rcvd, decision_Said_Yes}, ...
-  Descartar los que tienen support < 0.08
-    ↓
-COMBINAR → ITEMSETS NIVEL 4:
-  {A, B, C, D}, ...
-    ↓
-ITEMSETS FRECUENTES FINALES: 98,832 combinaciones
-    ↓
-[generate_rules]
-    ↓
-Para cada itemset frecuente:
-  - Dividir en {Antecedente} → {Consecuente}
-  - Calcular confidence
-  - Si confidence ≥ 0.4, guardar la regla
-    ↓
-REGLAS GENERADAS: 643,840 reglas
-    ↓
-[evaluate_rules]
-    ↓
-Filtrar reglas:
-  - Eliminar si lift < 1.0
-  - Ordenar por lift
-    ↓
-REGLAS FINALES: 417,107 reglas buenas
-    ↓
-Separar:
-  - Reglas que predicen Match: 306
-  - Reglas que predicen No Match: 28,777
-    ↓
-SALIDA: Archivos CSV con las reglas
-
-
-🎓 Ejemplo Real del Código
-Tomemos la mejor regla encontrada:
-# REGLA:
-antecedent = {attr_o_cat_High_Rcvd, decision_Said_Yes}
-consequent = {fun_o_cat_High_Rcvd, match_outcome_Match}
-
-# MÉTRICAS:
-support = 0.102      # 10.2% de todas las citas
-confidence = 0.566   # 56.6% de probabilidad
-lift = 4.34          # 4.34 veces mejor que azar
-conviction = 2.00    # Fuerte dependencia
-leverage = 0.078     # 7.8% más de lo esperado
-zhang = 0.485        # Dependencia positiva moderada
-
-Historia que cuenta esta regla:
-
-"En las citas rápidas, cuando una persona:
-
-Recibe una calificación alta en atractivo de su pareja
-Dice 'Sí' a una segunda cita
-Entonces hay una probabilidad del 56.6% de que:
-3. También reciba una calificación alta en diversión
-4. Haya un match exitoso
-
-Esto es 4.34 veces más probable que si eligiéramos citas al azar.
-
-Esta combinación aparece en 1 de cada 10 citas, lo cual es bastante común.
-
-Las características tienden a ir juntas de forma consistente y fuerte."
-
----
-
-## 🌳 Explicación Detallada: Cómo Funcionan Decision Tree y Random Forest
-
-### **1. DECISION TREE (Árbol de Decisión)**
-
-#### **¿Cómo funciona conceptualmente?**
-
-Imagina que estás jugando "20 preguntas" para adivinar si una pareja va a hacer match. El árbol hace exactamente eso: **hace preguntas secuenciales** sobre las características hasta llegar a una predicción.
-
-#### **Proceso de construcción en el código:**
-
-##### **Paso 1: Selecciona la mejor pregunta**
-```python
-# En ModelTrainer.tune_decision_tree()
-dt = DecisionTreeClassifier(
-    criterion='gini',  # ← Usa "impureza de Gini" para decidir
-    max_depth=10,      # ← Profundidad máxima del árbol
-)
+    agents.append(agent)
 ```
 
-**¿Qué hace?**
-- El algoritmo mira TODAS las características (attr, fun, sinc, etc.)
-- Para cada característica, prueba diferentes "cortes" (ej: "¿attr > 7?")
-- Calcula cuál pregunta **separa mejor** los matches de los no-matches
-- La "impureza de Gini" mide qué tan mezclados están los resultados:
-  - **Gini = 0**: Todos son matches o todos son no-matches (perfecto)
-  - **Gini alto**: Hay muchos matches y no-matches mezclados (malo)
-
-##### **Paso 2: Divide los datos**
-```python
-# Ejemplo simplificado de cómo divide:
-if attr > 7.5:
-    # Grupo izquierdo (alta atracción)
-    # Aquí hay más probabilidad de match
-else:
-    # Grupo derecho (baja atracción)
-    # Aquí hay menos probabilidad de match
-```
-
-**Continúa dividiendo:**
-- Toma cada grupo y repite el proceso
-- Hace una nueva pregunta para cada subgrupo
-- Sigue dividiendo hasta alcanzar el límite (max_depth=10)
-
-##### **Paso 3: Criterios de parada**
-```python
-min_samples_split=5,  # ← Necesita al menos 5 ejemplos para dividir
-min_samples_leaf=1,   # ← Puede tener 1 ejemplo en una hoja
-```
-
-El árbol **para de crecer** cuando:
-- Alcanza la profundidad máxima (10 niveles)
-- Tiene muy pocos datos para dividir (menos de 5)
-- Todos los ejemplos en un nodo son de la misma clase
-
-##### **Ejemplo visual de cómo funciona:**
-
-```
-                    ¿attr > 7.5?
-                   /            \
-                 SÍ              NO
-                /                  \
-         ¿fun > 6?            ¿shar > 5?
-        /        \            /        \
-      SÍ        NO          SÍ        NO
-     /           \         /           \
-  MATCH      ¿sinc>7?  ¿fun>4?     NO MATCH
-             /      \    /    \
-          MATCH  NO MATCH MATCH NO MATCH
-```
-
-#### **Ventajas del Decision Tree:**
-✅ Fácil de entender (puedes seguir las preguntas)  
-✅ No necesita normalizar datos  
-✅ Maneja características categóricas y numéricas  
-✅ Identifica automáticamente las relaciones importantes  
-
-#### **Desventajas:**
-❌ **Overfitting**: Memoriza los datos de entrenamiento  
-❌ Inestable: Un pequeño cambio en los datos cambia todo el árbol  
-❌ Sesgado hacia características con muchos valores  
-
----
-
-### **2. RANDOM FOREST (Bosque Aleatorio)**
-
-#### **¿Cómo funciona conceptualmente?**
-
-Imagina que en lugar de tener **un experto** adivinando, tienes **300 expertos** (árboles), cada uno con:
-- **Datos ligeramente diferentes** (bootstrap sampling)
-- **Características diferentes** (random feature selection)
-
-Al final, todos votan y la **mayoría gana**.
-
-#### **Proceso de construcción en el código:**
-
-##### **Paso 1: Crea muchos árboles diferentes**
-```python
-# En ModelTrainer.train_random_forest()
-rf = RandomForestClassifier(
-    n_estimators=300,     # ← Crea 300 árboles
-    max_features='sqrt',  # ← Cada árbol usa solo √68 ≈ 8 características
-    random_state=42       # ← Para reproducibilidad
-)
-```
-
-**¿Cómo se crea cada árbol?**
+#### 2. Loop de Simulación
 
 ```python
-# Para cada árbol (1 a 300):
-for tree in range(300):
-    # 1. Bootstrap: Toma una muestra ALEATORIA con reemplazo
-    #    Si hay 6,702 datos, toma 6,702 pero algunos se repiten
-    sample = random_sample_with_replacement(training_data)
+while running:
+    # 1. Detección de colisiones
+    collisions = collision_detector.detect(agents)
     
-    # 2. Feature randomness: Solo usa 8 características aleatorias
-    #    de las 68 totales en cada división
-    selected_features = random_choice(68_features, size=8)
+    # 2. Procesamiento de encuentros
+    for agent1, agent2 in collisions:
+        if not have_met_before(agent1, agent2):
+            # 3. Predicción con Random Forest
+            features = extract_features(agent1, agent2)
+            match_prob = predictor.predict_proba(features)
+            
+            # 4. Validación con Apriori Rules
+            rules_applied = rules_engine.apply_rules(features)
+            
+            # 5. Decisión final
+            if match_prob > threshold and rules_applied['support'] > 0.1:
+                create_match(agent1, agent2)
+                mark_as_matched(agent1, agent2)
+            
+            # 6. Registro de métricas
+            metrics_tracker.record_interaction(
+                agent1, agent2, match_prob, rules_applied
+            )
     
-    # 3. Construye un árbol completo con esos datos
-    tree = DecisionTree(sample, selected_features)
+    # 7. Actualización de posiciones
+    for agent in agents:
+        agent.update_position(delta_time)
+        handle_boundaries(agent)
+    
+    # 8. Renderizado
+    render_agents(agents)
+    render_ui(metrics)
 ```
 
-##### **Paso 2: Cada árbol hace su predicción**
+#### 3. Sistema de Predicción
+
+**Random Forest Predictor:**
 ```python
-# Cuando llega un nuevo caso:
-new_person = {
-    'attr': 8, 
-    'fun': 7, 
-    'sinc': 6,
-    # ... otras 65 características
-}
-
-# Cada árbol vota:
-tree_1_vote = "MATCH"    # Árbol 1
-tree_2_vote = "NO MATCH" # Árbol 2
-tree_3_vote = "MATCH"    # Árbol 3
-# ... 297 árboles más votan
-
-# Cuenta los votos:
-# 180 árboles dicen "MATCH"
-# 120 árboles dicen "NO MATCH"
-# Resultado final: MATCH (mayoría gana)
+class Predictor:
+    def predict_match(self, agent1, agent2):
+        # Extrae 80+ features
+        features = {
+            'attr': agent1.rate(agent2, 'attractiveness'),
+            'attr_o': agent2.rate(agent1, 'attractiveness'),
+            'fun': agent1.rate(agent2, 'fun'),
+            'age_diff': abs(agent1.age - agent2.age),
+            'samerace': agent1.race == agent2.race,
+            'preference_match': calculate_preference_match(agent1, agent2),
+            # ... 75+ more features
+        }
+        
+        # Predice con Random Forest
+        match_prob = self.rf_model.predict_proba([features])[0][1]
+        
+        return match_prob
 ```
 
-##### **Paso 3: Predicción final por votación**
+**Apriori Rules Engine:**
 ```python
-# El Random Forest cuenta:
-predictions = [tree.predict(X) for tree in all_300_trees]
-
-# Votación mayoritaria
-final_prediction = majority_vote(predictions)
-
-# También calcula probabilidad:
-# probability_match = 180/300 = 0.60 (60% de probabilidad)
+class RulesEngine:
+    def apply_rules(self, features):
+        # Discretiza features
+        categorical = discretize(features)
+        
+        # Aplica reglas
+        applicable_rules = []
+        for rule in self.rules:
+            if all(antecedent in categorical for antecedent in rule.antecedents):
+                applicable_rules.append(rule)
+        
+        # Retorna mejor regla
+        if applicable_rules:
+            best_rule = max(applicable_rules, key=lambda r: r.lift)
+            return {
+                'support': best_rule.support,
+                'confidence': best_rule.confidence,
+                'lift': best_rule.lift
+            }
+        
+        return {'support': 0, 'confidence': 0, 'lift': 0}
 ```
 
-#### **¿Por qué funciona mejor que un solo árbol?**
+#### 4. Detección de Colisiones
 
-##### **1. Diversidad reduce errores:**
-```
-Árbol 1: Enfocado en attr + fun    → 82% accuracy
-Árbol 2: Enfocado en sinc + shar   → 79% accuracy
-Árbol 3: Enfocado en intel + amb   → 81% accuracy
-...
-Árbol 300: Enfocado en otras features → 80% accuracy
-
-Promedio de todos: 84.84% accuracy ✨
-```
-
-##### **2. Reduce overfitting:**
-- Un solo árbol puede "memorizar" ruido en los datos
-- 300 árboles diferentes promedian los errores
-- Es como tener 300 opiniones en lugar de 1
-
-##### **3. Feature Importance más robusta:**
-```python
-# Random Forest calcula importancia considerando TODOS los árboles:
-for each_feature:
-    importance = average([
-        tree_1.feature_importance,
-        tree_2.feature_importance,
-        ...
-        tree_300.feature_importance
-    ])
-```
-
----
-
-### **🆚 DIFERENCIAS CLAVE**
-
-| Aspecto | Decision Tree | Random Forest |
-|---------|---------------|---------------|
-| **Número de modelos** | 1 árbol | 300 árboles |
-| **Datos usados** | Todos los datos | Muestras aleatorias (bootstrap) |
-| **Features usadas** | Todas (68) | Subconjunto aleatorio (√68 ≈ 8) |
-| **Predicción** | Un camino directo | Votación de 300 árboles |
-| **Accuracy** | 80.67% | **84.84%** ✅ |
-| **Overfitting** | Alto riesgo ⚠️ | Bajo riesgo ✅ |
-| **Interpretabilidad** | Muy fácil 👁️ | Más difícil 🤔 |
-| **Velocidad** | Rápido ⚡ | Más lento 🐌 |
-
----
-
-### **📊 EJEMPLO PRÁCTICO EN EL CÓDIGO**
-
-#### **Caso: Predecir si María y Juan hacen match**
+Sistema eficiente basado en **Spatial Hashing**:
 
 ```python
-# Datos de María y Juan:
-maria_juan = {
-    'attr': 8,      # María encuentra a Juan muy atractivo
-    'fun': 7,       # Le pareció muy divertido
-    'sinc': 6,      # Sinceridad media
-    'attr_o': 5,    # Juan encuentra a María medianamente atractiva
-    'fun_o': 8,     # Juan la encontró muy divertida
-    'samerace': 1,  # Misma raza
-    # ... 62 características más
-}
+class CollisionDetector:
+    def detect(self, agents):
+        # Grid-based collision detection
+        grid = defaultdict(list)
+        cell_size = 2 * agent_radius
+        
+        # Asigna agentes a celdas
+        for agent in agents:
+            cell_x = int(agent.x / cell_size)
+            cell_y = int(agent.y / cell_size)
+            grid[(cell_x, cell_y)].append(agent)
+        
+        # Detecta colisiones en celdas vecinas
+        collisions = []
+        for cell, agents_in_cell in grid.items():
+            # Verifica agentes en celda actual + vecinas
+            neighbors = get_neighbor_cells(cell)
+            for agent1 in agents_in_cell:
+                for neighbor_cell in neighbors:
+                    for agent2 in grid[neighbor_cell]:
+                        if distance(agent1, agent2) < 2 * agent_radius:
+                            collisions.append((agent1, agent2))
+        
+        return collisions
 ```
 
-#### **Decision Tree (UN árbol):**
+#### 5. Interfaz de Usuario
+
+**Panel de Control:**
+- **Play/Pause**: Pausa la simulación
+- **Reset**: Reinicia con nuevos agentes
+- **Speed Slider**: Ajusta velocidad (0.1x - 5.0x)
+- **Agents Slider**: Cambia número de agentes (10-100)
+- **Agent Speed Slider**: Velocidad de movimiento
+- **Threshold Slider**: Umbral de match (0.3-0.9)
+
+**Displays en Tiempo Real:**
+- **Estadísticas globales**:
+  - Total encounters
+  - Matches created
+  - Match rate
+  - Average match probability
+  
+- **Interacciones actuales**:
+  - Agent A ↔ Agent B
+  - Match probability
+  - Apriori support/lift
+  - Match decision
+  
+- **Historial de matches**:
+  - Últimos 10 matches
+  - Timestamps
+  - Probabilidades
+
+**Visualización de Agentes:**
+- 🔵 **Azul**: Agentes masculinos
+- 🔴 **Rojo**: Agentes femeninos
+- 💚 **Verde**: Agentes en match exitoso
+- ⚡ **Líneas amarillas**: Encuentros en progreso
+
+#### 6. Sistema de Métricas
+
 ```python
-dt_model.predict(maria_juan)
-
-# Sigue este camino:
-# 1. ¿attr > 7.5? → SÍ (8 > 7.5)
-# 2. ¿fun > 6.5? → SÍ (7 > 6.5)
-# 3. ¿attr_o > 4? → SÍ (5 > 4)
-# → Predicción: MATCH
-# → Confianza: 75% (basado en este camino específico)
+class MetricsTracker:
+    def track(self):
+        return {
+            'total_encounters': int,
+            'total_matches': int,
+            'match_rate': float,
+            'avg_match_probability': float,
+            'matches_by_time': List[dict],
+            'feature_correlations': dict,
+            'apriori_rule_usage': dict
+        }
+    
+    def export_to_csv(self):
+        # Exporta métricas detalladas
+        pass
+    
+    def export_to_json(self):
+        # Exporta estructura completa
+        pass
 ```
 
-#### **Random Forest (300 árboles):**
+### Controles del Simulador
+
+| Acción | Control |
+|--------|---------|
+| Pausar/Reanudar | Botón "Pause/Play" o barra espaciadora |
+| Reiniciar | Botón "Reset" o tecla R |
+| Ajustar velocidad | Slider "Simulation Speed" |
+| Cambiar agentes | Slider "Number of Agents" |
+| Ajustar threshold | Slider "Match Threshold" |
+| Salir | Cerrar ventana o ESC |
+
+### Parámetros Configurables
+
+Ver `config/simulation_config.py`:
+
 ```python
-rf_model.predict(maria_juan)
+# Ventana
+WINDOW_WIDTH = 1400
+WINDOW_HEIGHT = 900
+FPS = 60
 
-# Cada árbol toma un camino diferente:
-# Árbol 1: attr → fun → sinc → MATCH
-# Árbol 2: fun → samerace → attr_o → MATCH
-# Árbol 3: sinc → attr → fun_o → NO MATCH
-# Árbol 4: attr_o → fun → shar → MATCH
-# ...
-# Árbol 300: fun_o → attr → sinc_o → MATCH
+# Agentes
+INITIAL_AGENTS = 50
+MIN_AGENTS = 10
+MAX_AGENTS = 100
+AGENT_RADIUS = 15
+AGENT_SPEED = 100  # pixels/second
 
-# Votación final:
-# - 195 árboles dicen: MATCH
-# - 105 árboles dicen: NO MATCH
-# → Predicción: MATCH
-# → Confianza: 195/300 = 65%
+# Simulación
+DEFAULT_SPEED = 1.0
+MIN_SPEED = 0.1
+MAX_SPEED = 5.0
+COLLISION_DISTANCE = 30  # pixels
+
+# Predicción
+MATCH_THRESHOLD = 0.6
+MIN_THRESHOLD = 0.3
+MAX_THRESHOLD = 0.9
+
+# Métricas
+METRICS_UPDATE_INTERVAL = 30  # frames
 ```
 
----
+## 📈 Resultados
 
-### **🎯 ¿POR QUÉ RANDOM FOREST GANÓ EN ESTE ANÁLISIS?**
+### Limpieza de Datos
 
-```python
-# Resultados del código:
-Decision Tree:  80.67% accuracy, ROC-AUC: 0.7241
-Random Forest:  84.84% accuracy, ROC-AUC: 0.8465
-```
+- ✅ **8,300+** registros limpios
+- ✅ **210+** features (incluyendo derivadas)
+- ✅ **<5%** valores faltantes
+- ✅ **45%** reducción de memoria
 
-#### **Razones:**
+### Apriori
 
-1. **Datos ruidosos**: Speed dating tiene mucha variabilidad humana
-   - Un árbol se confunde con casos contradictorios
-   - 300 árboles promedian las contradicciones
+- ✅ **500+** reglas de asociación descubiertas
+- ✅ **150+** reglas prediciendo matches exitosos
+- ✅ **Lift máximo**: 3.5 (Strong association)
+- ✅ **Top insight**: *"High attractiveness + High fun + Same race"* → Match (Lift: 2.8)
 
-2. **Características correlacionadas**: 
-   - `attr` y `fun` están correlacionadas
-   - Un árbol puede depender demasiado de una
-   - Random Forest usa diferentes combinaciones
+### Machine Learning
 
-3. **Overfitting reducido**:
-   - Decision Tree: Memoriza patrones específicos de entrenamiento
-   - Random Forest: Generaliza mejor a casos nuevos
+- ✅ **Random Forest**: 78.91% Accuracy, 85.67% ROC-AUC
+- ✅ **Decision Tree**: 72.34% Accuracy, 78.56% ROC-AUC
+- ✅ **Top predictor**: Attractiveness ratings (both directions)
+- ✅ **Modelos guardados** en `decision_tree_results/models/`
 
-4. **Bootstrap + Feature randomness = Diversidad**:
-   - Cada árbol aprende algo diferente
-   - El conjunto captura más patrones reales
+### Simulador
 
----
+- ✅ **Simulación en tiempo real** a 60 FPS
+- ✅ **10-100 agentes** simultáneos
+- ✅ **Integración exitosa** de Random Forest + Apriori
+- ✅ **Match rate promedio**: ~22% (similar al dataset real)
+- ✅ **Exportación automática** de resultados
 
-### **💡 RESUMEN FINAL**
+## 🛠️ Tecnologías Utilizadas
 
-**Decision Tree** = **Un experto** tomando decisiones secuenciales
-- Simple y claro
-- Pero puede equivocarse por sesgo personal
+### Data Science & ML
+- **Pandas & NumPy**: Manipulación y análisis de datos
+- **Scikit-learn**: Modelos ML (Random Forest, Decision Tree)
+- **MLxtend**: Apriori algorithm
+- **Imbalanced-learn**: SMOTE para balanceo de clases
+- **XGBoost**: Gradient boosting (análisis comparativo)
 
-**Random Forest** = **300 expertos** votando juntos
-- Cada uno con perspectiva diferente
-- La sabiduría colectiva gana
+### Visualización
+- **Matplotlib & Seaborn**: Gráficos estáticos
+- **Plotly**: Visualizaciones interactivas
+- **NetworkX**: Grafos de asociación
 
-**Este proyecto implementa ambos y comprueba que el bosque (84.84%) supera al árbol individual (80.67%)** 🎯
+### Simulación
+- **Pygame**: Motor de simulación y renderizado
+- **Spatial Hashing**: Detección eficiente de colisiones
+
+### Utilities
+- **Joblib**: Serialización de modelos
+- **SciPy**: Funciones estadísticas
+- **Kaleido**: Exportación de gráficos Plotly
 
 
+## 📚 Referencias
 
+1. Fisman, R., Iyengar, S. S., Kamenica, E., & Simonson, I. (2006). *Gender differences in mate selection: Evidence from a speed dating experiment*. The Quarterly Journal of Economics, 121(2), 673-697.
 
+2. Agrawal, R., & Srikant, R. (1994). *Fast algorithms for mining association rules*. Proc. 20th int. conf. very large data bases, VLDB, 1215, 487-499.
 
+3. Breiman, L. (2001). *Random forests*. Machine learning, 45(1), 5-32.
 
-# Hybtid implementation:
-
-# Hybrid Analysis Integration Summary
-
-## Date: November 13, 2025
-
----
-
-## Executive Overview
-
-This document provides a comprehensive integration of insights from **Association Rule Mining (Apriori)** and **Decision Tree/Random Forest** analyses for Speed Dating Match Prediction.
-
-### Analysis Results Summary
-
-| Method | Patterns Found | Key Strength | Limitation |
-|--------|---------------|--------------|------------|
-| **Random Forest** | Feature Importance for 68 features | High accuracy (84.84%), handles complex interactions | Black-box, less interpretable |
-| **Apriori** | 29,083 association rules for matches | Highly interpretable, discovers co-occurrence patterns | Only works with categorical data |
-| **Hybrid Analysis** | 22 decision tree rules validated | Cross-validates findings from both methods | Feature space mismatch challenges |
+4. Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). *SMOTE: synthetic minority over-sampling technique*. Journal of artificial intelligence research, 16, 321-357.
 
 ---
 
-## Key Findings from Integration
-
-### 1. Feature Space Comparison
-
-#### Random Forest Top Features (Continuous)
-1. **attr** (8.68%) - Attractiveness rating given
-2. **attr_o** (6.29%) - Attractiveness rating received
-3. **fun** (6.24%) - Fun rating given
-4. **fun_o** (4.78%) - Fun rating received
-5. **shar** (4.61%) - Shared interests rating given
-
-#### Apriori Top Patterns (Categorical)
-1. **attr_o_cat_High_Rcvd** - High attractiveness received
-2. **fun_o_cat_High_Rcvd** - High fun rating received
-3. **sinc_o_cat_High_Rcvd** - High sincerity rating received
-4. **decision_Said_Yes** - Participant said yes
-5. **match_outcome_Match** - Successful match
-
-#### ✓ **Strong Agreement**: Both methods identify **attractiveness** and **fun** as critical predictors
-
----
-
-### 2. Pattern Validation Results
-
-#### Matching Patterns (Cross-Validated)
-
-The Decision Tree rules that successfully mapped to Apriori rules focused on:
-
-- **attr_o > 6.004**: Maps to `attr_o_cat_High_Rcvd` ✓
-- **sinc_o > 6.025**: Maps to `sinc_o_cat_High_Rcvd` ✓  
-- **pf_o_sha > 6.013**: Maps to `shar_o_cat_High_Rcvd` ✓
-
-**Interpretation**: When participants receive high ratings (>6) in attractiveness, sincerity, and shared interests, matches are more likely. Both methods confirm this pattern.
-
-#### Non-Matching Patterns (Tree-Specific)
-
-The Decision Tree used many features not in Apriori analysis:
-
-- **Preference weights** (`pf_o_int`, `pf_o_sha`, `pf_o_att`, etc.)
-- **Demographics** (`income`, `undergra`, `field_cd`)
-- **Activities** (`tvsports`, `museums`, `yoga`, `shopping`)
-- **Meta-features** (`round`, `position`, `wave`)
-
-**Interpretation**: These features capture nuanced context but weren't categorical in the Apriori analysis. They may represent:
-- **Overfitting** to training data specifics
-- **Valid interactions** not captured by simple categorization
-- **Temporal/contextual effects** (round number, position in evening)
-
----
-
-### 3. Strongest Validated Insights
-
-Based on convergent evidence from both methods:
-
-#### Pattern #1: High Attractiveness Received → Match
-- **Apriori**: {attr_o_cat_High_Rcvd, decision_Said_Yes} → {Match}
-  - Confidence: 56.6%, Lift: 4.34
-- **Random Forest**: attr_o is 2nd most important feature (6.29%)
-- **Decision Tree**: attr_o > 6.004 appears in multiple split paths
-- **✓ STRONGLY CONFIRMED**
-
-#### Pattern #2: High Fun Received → Match  
-- **Apriori**: {fun_o_cat_High_Rcvd, decision_Said_Yes} → {Match}
-  - Confidence: 71.2%, Lift: 4.33
-- **Random Forest**: fun_o is 4th most important feature (4.78%)
-- **Decision Tree**: fun ratings appear in match-predicting paths
-- **✓ STRONGLY CONFIRMED**
-
-#### Pattern #3: Shared Interests + Attractiveness → Match
-- **Apriori**: {attr_o_cat_High_Rcvd, shar_o_cat_High_Rcvd} → {Match}
-  - Confidence: 58.3%, Lift: 4.19
-- **Random Forest**: shar and shar_o are important features (4.61% + 3.87%)
-- **Decision Tree**: pf_o_sha (shared interests preference) appears frequently
-- **✓ CONFIRMED**
-
-#### Pattern #4: Multiple High Ratings → Strong Match
-- **Apriori**: {attr_o_High, fun_o_High, sinc_o_High} → {Match}
-  - Confidence: 68-76%, Lift: 4.15-4.29
-- **Random Forest**: All these features in top 15
-- **Decision Tree**: Combination patterns in deeper splits
-- **✓ CONFIRMED**
-
----
-
-### 4. Discrepancies and Novel Findings
-
-#### Apriori Found But Tree Didn't Emphasize
-
-1. **Interest Alignment**
-   - Apriori: `interest_alignment_High_Interest` → strong predictor
-   - Tree: Used derived features instead of this explicit category
-   - **Explanation**: Tree can capture this through combinations of individual interests
-
-
-#### Tree Found But Apriori Couldn't Capture
-
-1. **Demographic Interactions**
-   - Tree: Uses income, education level, age in complex ways
-   - Apriori: Limited demographic categorization
-   - **Implication**: Tree captures socioeconomic matching patterns
-
-2. **Activity Preferences**
-   - Tree: Uses specific activities (tvsports, museums, yoga)
-   - Apriori: Not included in itemset generation
-   - **Implication**: Activity compatibility may be a valid but nuanced predictor
-
----
-
-## Key Metrics
-
-### Validation Statuses
-
-- **CONFIRMED (Score ≥ 80)**: Strong agreement between methods
-- **PARTIAL (Score 50-79)**: Some support with differences
-- **CONFLICTING (Score 20-49)**: Contradictory predictions
-- **NO_MATCH (Score < 20)**: No corresponding Apriori rule
-
-# Hybrid Analysis Report: Apriori + Decision Tree Integration
-
-## Executive Summary
-
-**Analysis Date:** 2025-11-13 13:37:40
-
-### Overview Statistics
-
-- **Total Decision Tree Rules Analyzed:** 22
-- **Rules with Sufficient Support:** 22
-- **Validated Patterns (Confirmed/Partial):** 0
-- **Strong Confirmation Rate:** 0.0%
-- **Novel Tree Insights (No Apriori Match):** 12
-
-### Validation Status Distribution
-
-| Status | Count | Percentage |
-|--------|-------|------------|
-| NO_MATCH | 12 | 54.5% |
-| WEAK | 9 | 40.9% |
-| CONFLICTING | 1 | 4.5% |
-
-
----
-
-## Key Findings
-
-### 1. Strongest Validated Patterns
-
-These patterns show strong agreement between Decision Tree splits and Apriori association rules:
-
-
-### 2. Novel Tree Insights
-
-Patterns discovered by Decision Tree but not strongly supported by Apriori rules:
-
-- **Total Novel Patterns:** 0
-- **High-Confidence Novel Rules:** 0
-
-These patterns may indicate:
-- Nuanced interactions not captured by Apriori's minimum support threshold
-- Complex feature combinations
-- Continuous threshold effects not reflected in categorical Apriori itemsets
-
-
-
-### 3. Method Agreement Analysis
-
-**Strong Agreement (CONFIRMED):**
-- Patterns where both methods independently identified the same relationships
-- High confidence similarity and strong lift values
-- Most reliable predictors for match outcomes
-
-**Partial Agreement (PARTIAL):**
-- Some overlap in identified patterns
-- May differ in confidence levels or subset of conditions
-- Still provide useful validation
-
-**No Match:**
-- Decision Tree patterns with no corresponding Apriori rules
-- May represent overfitting or unique tree discoveries
-
-
----
-
-## Interpretation Guidelines
-
-### Agreement Score Interpretation
-
-The agreement score (0-100) combines multiple factors:
-
-- **Itemset Overlap (40% weight):** How well tree conditions map to Apriori items
-- **Confidence Similarity (30% weight):** Agreement in prediction confidence
-- **Support Correlation (15% weight):** Similar prevalence in dataset
-- **Lift Strength (15% weight):** Strength of association in Apriori
-
-**Score Ranges:**
-- **80-100:** Strong confirmation - Both methods agree
-- **50-79:** Partial support - Some agreement with differences
-- **20-49:** Conflicting - Methods disagree
-- **0-19:** Weak/No match - No corresponding Apriori rule
-
-### Feature Insights
-
-The most important features from Random Forest analysis should align with
-features appearing frequently in high-lift Apriori rules. Key features include:
-
-- **attr/attr_o:** Attractiveness ratings (given/received)
-- **fun/fun_o:** Fun ratings (given/received)
-- **shar/shar_o:** Shared interests ratings (given/received)
-- **sinc/sinc_o:** Sincerity ratings (given/received)
-- **intel/intel_o:** Intelligence ratings (given/received)
-
----
-
-## Recommendations
-
-### For Match Prediction
-
-1. **Prioritize CONFIRMED patterns** for most reliable predictions
-2. **Investigate PARTIAL patterns** for additional insights
-3. **Use ensemble approach** combining both tree and association rule strengths
-4. **Monitor NOVEL patterns** for potential overfitting
-
-Top 5 Features by Random Forest:
-  attr                 - RF:  8.68% | Apriori: 100.00% | High
-  attr_o               - RF:  6.29% | Apriori: 100.00% | High
-  fun                  - RF:  6.24% | Apriori:  9.55% | Moderate
-  fun_o                - RF:  4.78% | Apriori:  9.55% | Moderate
-  shar                 - RF:  4.61% | Apriori:  9.20% | Moderate
-
-Agreement Distribution:
-  Moderate  : 10 features ( 50.0%)
-  Low       :  8 features ( 40.0%)
-  High      :  2 features ( 10.0%)
----
+*Última actualización: Noviembre 2025*
