@@ -6,3 +6,12 @@ scikit-learn
 scipy
 pyarrow
 plotly
+mlxtend
+networkx
+kaleido
+joblib
+imbalanced-learn
+tabulate
+xgboost
+matplotlib-venn
+pygame

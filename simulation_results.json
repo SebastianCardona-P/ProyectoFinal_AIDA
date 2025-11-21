@@ -1,0 +1,60 @@
+{
+  "summary": {
+    "total_encounters": 4,
+    "total_matches": 4,
+    "match_rate": 100.0
+  },
+  "encounters": [
+    {
+      "timestamp": 1763148569.8538716,
+      "agent1_id": 3,
+      "agent2_id": 6,
+      "matched": true,
+      "rf_probability": 0.5,
+      "apriori_boost": 0.15000000000000002,
+      "apriori_rules": [
+        "Shared Interests \u2192 Match",
+        "Same Race \u2192 Match"
+      ],
+      "final_probability": 0.65,
+      "encounter_number": 1,
+      "agent1_gender": "M",
+      "agent1_age": 22,
+      "agent1_race": 2,
+      "agent1_field": 7,
+      "agent1_attractiveness": 8.203440217427055,
+      "agent1_sincerity": 10.0,
+      "agent1_intelligence": 6.734611800547362,
+      "agent1_fun": 5.717545474332819,
+      "agent1_ambition": 6.689842625442819,
+      "agent2_gender": "F",
+      "agent2_age": 29,
+      "agent2_race": 2,
+      "agent2_field": 8,
+      "agent2_attractiveness": 6.08235619611721,
+      "agent2_sincerity": 7.95155150981361,
+      "agent2_intelligence": 9.454939424104786,
+      "agent2_fun": 8.577422688300185,
+      "agent2_ambition": 8.697493911607602
+    },
+    {
+      "timestamp": 1763148569.991034,
+      "agent1_id": 2,
+      "agent2_id": 5,
+      "matched": true,
+      "rf_probability": 0.43,
+      "apriori_boost": 0.4,
+      "apriori_rules": [
+        "High Attraction + Interest \u2192 Match",
+        "High Fun + Attractive \u2192 Match",
+        "Shared Interests \u2192 Match",
+        "Same Race \u2192 Match",
+        "Similar Age \u2192 Match",
+        "Similar Ambition \u2192 Match"
+      ],
+      "final_probability": 0.8300000000000001,
+      "encounter_number": 2,
+      "agent1_gender": "M",
+      "agent1_age": 26,
+      "agent1_race": 2,
+      "agent1_field": 
